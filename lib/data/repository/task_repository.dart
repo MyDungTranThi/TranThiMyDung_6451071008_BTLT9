@@ -6,7 +6,6 @@ class TaskRepository {
   final CollectionReference<Map<String, dynamic>> _collection =
       FirebaseFirestore.instance.collection(collectionName);
 
-  /// Get all tasks as a stream, ordered by creation time (descending)
   Stream<List<TaskModel>> getTasks() {
     return _collection
         .orderBy('createdAt', descending: true)
@@ -18,7 +17,6 @@ class TaskRepository {
     });
   }
 
-  /// Add a new task
   Future<void> addTask(String title) async {
     await _collection.add({
       'title': title.trim(),
@@ -27,17 +25,14 @@ class TaskRepository {
     });
   }
 
-  /// Update task's isDone status
   Future<void> updateTaskDone(String taskId, bool isDone) async {
     await _collection.doc(taskId).update({'isDone': isDone});
   }
 
-  /// Update task's title
   Future<void> updateTask(String taskId, String title) async {
     await _collection.doc(taskId).update({'title': title.trim()});
   }
 
-  /// Delete a task
   Future<void> deleteTask(String taskId) async {
     await _collection.doc(taskId).delete();
   }

@@ -13,7 +13,6 @@ class TaskModel {
     required this.createdAt,
   });
 
-  /// Convert Firestore document to TaskModel
   factory TaskModel.fromMap(Map<String, dynamic> map, String id) {
     return TaskModel(
       id: id,
@@ -27,7 +26,6 @@ class TaskModel {
     return TaskModel.fromMap(doc.data() as Map<String, dynamic>, doc.id);
   }
 
-  /// Convert TaskModel to map for Firestore
   Map<String, dynamic> toMap() {
     return {
       'title': title,
@@ -36,7 +34,6 @@ class TaskModel {
     };
   }
 
-  /// Format timestamp for display
   String get formattedDate {
     if (createdAt == null) return 'No date';
     final date = createdAt!.toDate();
